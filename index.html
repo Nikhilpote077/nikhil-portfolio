@@ -226,15 +226,24 @@
           left: 0;
           right: 0;
           background: var(--bg-alt);
-          border-bottom: 1px solid var(--border);
           flex-direction: column;
           gap: 0;
-          padding: 8px 0;
-          transform: translateY(-130%);
-          transition: transform 0.3s ease;
+          padding: 0;
+          max-height: 0;
+          overflow: hidden;
+          border-bottom: 1px solid transparent;
+          opacity: 0;
+          transition:
+            max-height 0.3s ease,
+            opacity 0.25s ease,
+            border-color 0.3s ease;
+          box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.5);
         }
         .nav-links.open {
-          transform: translateY(0);
+          max-height: 400px;
+          opacity: 1;
+          padding: 8px 0;
+          border-bottom-color: var(--border);
         }
         .nav-links a {
           padding: 14px 32px;
@@ -765,11 +774,6 @@
       }
       @media (max-width: 860px) {
         .other-grid {
-          grid-template-columns: 1fr 1fr;
-        }
-      }
-      @media (max-width: 560px) {
-        .other-grid {
           grid-template-columns: 1fr;
         }
       }
@@ -1144,7 +1148,8 @@
             <h2>Flagship projects</h2>
             <p class="desc">
               Personal builds that mirror the production systems I work on — in
-              progress. Live demos and repos going live soon.
+              progress. Live demos and repos going live soon. Below that, recent
+              client sites currently live in production.
             </p>
           </div>
 
@@ -1198,55 +1203,56 @@
             class="section-head reveal"
             style="margin-top: 64px; margin-bottom: 0"
           >
-            <div class="eyebrow">Other Repositories</div>
+            <div class="eyebrow">Recent Client Work</div>
           </div>
           <div class="other-grid reveal">
             <div class="other-card">
               <div class="oc-top">
-                <h4>iCoderBootstrap</h4>
-                <span class="oc-lang">HTML</span>
+                <h4>New Shine Beauty Salon &amp; Academy</h4>
+                <span class="oc-lang">HTML/CSS/JS</span>
               </div>
               <p>
-                A Bootstrap-based website build exploring responsive layout
-                fundamentals.
+                Booking-driven site for a luxury bridal makeup studio — service
+                pages, gallery, testimonials, and a consultation enquiry form.
               </p>
               <a
                 class="oc-link"
-                href="https://github.com/Nikhilpote077/iCoderBootstrap"
+                href="https://aishwarya-beauty-studio-premium.netlify.app/"
                 target="_blank"
                 rel="noopener"
-                >View on GitHub →</a
+                >View Live Site →</a
               >
             </div>
             <div class="other-card">
               <div class="oc-top">
-                <h4>Netflix Clone</h4>
-                <span class="oc-lang">JavaScript</span>
+                <h4>YK Polish Co.</h4>
+                <span class="oc-lang">HTML/CSS/JS</span>
               </div>
-              <p>A front-end recreation of the Netflix browsing UI.</p>
+              <p>
+                Storefront-style site for a handcrafted press-on nails brand —
+                mood-based collections, shop browsing, and a custom-order flow.
+              </p>
               <a
                 class="oc-link"
-                href="https://github.com/Nikhilpote077/Netflix_Clone"
+                href="https://yk-polish-co.netlify.app/"
                 target="_blank"
                 rel="noopener"
-                >View on GitHub →</a
+                >View Live Site →</a
               >
             </div>
             <div class="other-card">
               <div class="oc-top">
-                <h4>SpringBootCRUDOperations</h4>
-                <span class="oc-lang">Java</span>
+                <h4>Stuti Technologies — Company Site</h4>
+                <span class="oc-lang">Next.js</span>
               </div>
               <p>
-                CRUD operations built with Spring Boot, exploring the Java
-                backend ecosystem.
+                Corporate website for Stuti Technologies, built with Next.js.
+                Currently in development — not yet live.
               </p>
-              <a
+              <span
                 class="oc-link"
-                href="https://github.com/Nikhilpote077/SpringBootCRUDOperations"
-                target="_blank"
-                rel="noopener"
-                >View on GitHub →</a
+                style="color: var(--text-faint); cursor: default"
+                >Live Demo Coming Soon</span
               >
             </div>
           </div>
