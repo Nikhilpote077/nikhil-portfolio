@@ -1,0 +1,1349 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nikhil Pote — Full-Stack Developer</title>
+    <meta
+      name="description"
+      content="Nikhil Pote — Full-Stack Developer specializing in PHP, MySQL, and JavaScript. 2.5+ years building school management, payroll, and assessment systems."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0b0f14;
+        --bg-alt: #0e1319;
+        --surface: #121821;
+        --surface-hover: #161d28;
+        --border: #212b38;
+        --border-light: #2a3644;
+        --cyan: #5fc9e8;
+        --cyan-dim: rgba(95, 201, 232, 0.14);
+        --amber: #f2a65a;
+        --amber-dim: rgba(242, 166, 90, 0.14);
+        --text: #e8edf2;
+        --text-dim: #8a96a3;
+        --text-faint: #566072;
+        --font-display: "Space Grotesk", sans-serif;
+        --font-body: "Inter", sans-serif;
+        --font-mono: "JetBrains Mono", monospace;
+        --max-w: 1120px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font-body);
+        line-height: 1.6;
+        overflow-x: hidden;
+        background-image:
+          linear-gradient(var(--border) 1px, transparent 1px),
+          linear-gradient(90deg, var(--border) 1px, transparent 1px);
+        background-size: 64px 64px;
+        background-attachment: fixed;
+        background-position: center;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 80% 60% at 50% -10%,
+            rgba(95, 201, 232, 0.08),
+            transparent
+          ),
+          radial-gradient(
+            ellipse 60% 40% at 100% 100%,
+            rgba(242, 166, 90, 0.05),
+            transparent
+          );
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      ul {
+        list-style: none;
+      }
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--cyan);
+        outline-offset: 3px;
+        border-radius: 2px;
+      }
+
+      .wrap {
+        max-width: var(--max-w);
+        margin: 0 auto;
+        padding: 0 32px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .eyebrow {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--cyan);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .eyebrow::before {
+        content: "";
+        width: 20px;
+        height: 1px;
+        background: var(--cyan);
+        display: inline-block;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: var(--font-display);
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+
+      /* ---------- NAV ---------- */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background: rgba(11, 15, 20, 0.78);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border);
+      }
+      nav {
+        max-width: var(--max-w);
+        margin: 0 auto;
+        padding: 18px 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .logo {
+        font-family: var(--font-mono);
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .logo .dot {
+        width: 6px;
+        height: 6px;
+        background: var(--cyan);
+        border-radius: 50%;
+        box-shadow: 0 0 8px var(--cyan);
+      }
+      .nav-links {
+        display: flex;
+        gap: 36px;
+      }
+      .nav-links a {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--text-dim);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        transition: color 0.2s ease;
+        position: relative;
+      }
+      .nav-links a:hover {
+        color: var(--cyan);
+      }
+      .nav-cta {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        border: 1px solid var(--border-light);
+        padding: 9px 16px;
+        border-radius: 4px;
+        color: var(--text);
+        transition: all 0.2s ease;
+        white-space: nowrap;
+      }
+      .nav-cta:hover {
+        border-color: var(--cyan);
+        color: var(--cyan);
+        background: var(--cyan-dim);
+      }
+      .nav-toggle {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+      }
+      .nav-toggle span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: var(--text);
+        margin: 5px 0;
+        transition: 0.25s;
+      }
+
+      @media (max-width: 820px) {
+        .nav-links {
+          position: fixed;
+          top: 63px;
+          left: 0;
+          right: 0;
+          background: var(--bg-alt);
+          border-bottom: 1px solid var(--border);
+          flex-direction: column;
+          gap: 0;
+          padding: 8px 0;
+          transform: translateY(-130%);
+          transition: transform 0.3s ease;
+        }
+        .nav-links.open {
+          transform: translateY(0);
+        }
+        .nav-links a {
+          padding: 14px 32px;
+          width: 100%;
+          border-bottom: 1px solid var(--border);
+        }
+        .nav-toggle {
+          display: block;
+        }
+        .nav-cta {
+          display: none;
+        }
+      }
+
+      /* ---------- HERO ---------- */
+      .hero {
+        min-height: 100svh;
+        display: flex;
+        align-items: center;
+        padding-top: 110px;
+        padding-bottom: 60px;
+        position: relative;
+      }
+      .hero-inner {
+        position: relative;
+      }
+      .hero-label {
+        margin-bottom: 28px;
+      }
+      .hero h1 {
+        font-size: clamp(40px, 7vw, 76px);
+        line-height: 1.02;
+        margin-bottom: 22px;
+      }
+      .hero h1 .accent {
+        color: var(--cyan);
+      }
+      .hero .role-line {
+        font-family: var(--font-mono);
+        font-size: clamp(14px, 2vw, 18px);
+        color: var(--text-dim);
+        margin-bottom: 26px;
+      }
+      .hero .role-line .cursor {
+        display: inline-block;
+        width: 9px;
+        height: 1.1em;
+        background: var(--cyan);
+        margin-left: 4px;
+        vertical-align: -2px;
+        animation: blink 1s steps(2) infinite;
+      }
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .hero p.lede {
+        max-width: 560px;
+        font-size: 17px;
+        color: var(--text-dim);
+        margin-bottom: 44px;
+      }
+      .hero p.lede strong {
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      .hero-ctas {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        margin-bottom: 72px;
+      }
+      .btn {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        letter-spacing: 0.03em;
+        padding: 14px 26px;
+        border-radius: 4px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+      .btn-primary {
+        background: var(--cyan);
+        color: #0b0f14;
+        font-weight: 600;
+      }
+      .btn-primary:hover {
+        background: #7ed4ee;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(95, 201, 232, 0.25);
+      }
+      .btn-ghost {
+        border: 1px solid var(--border-light);
+        color: var(--text);
+      }
+      .btn-ghost:hover {
+        border-color: var(--amber);
+        color: var(--amber);
+        transform: translateY(-2px);
+      }
+
+      /* dimension-line stat annotations */
+      .dims {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+        border-top: 1px solid var(--border);
+      }
+      .dim {
+        padding: 20px 20px 0 0;
+        position: relative;
+      }
+      .dim:not(:last-child) {
+        border-right: 1px solid var(--border);
+        padding-right: 24px;
+        margin-right: 0;
+      }
+      .dim::before {
+        content: "";
+        position: absolute;
+        top: -1px;
+        left: 0;
+        width: 26px;
+        height: 1px;
+        background: var(--cyan);
+      }
+      .dim .num {
+        font-family: var(--font-mono);
+        font-size: clamp(22px, 3vw, 30px);
+        color: var(--text);
+        font-weight: 600;
+        display: block;
+        margin-bottom: 6px;
+      }
+      .dim .num span {
+        color: var(--cyan);
+      }
+      .dim .lbl {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+      }
+      @media (max-width: 640px) {
+        .dims {
+          grid-template-columns: 1fr;
+        }
+        .dim {
+          border-right: none !important;
+          padding-right: 0 !important;
+          border-bottom: 1px solid var(--border);
+          padding-bottom: 20px;
+          margin-bottom: 8px;
+        }
+        .dim:last-child {
+          border-bottom: none;
+        }
+      }
+
+      /* ---------- SECTION SHELL ---------- */
+      section {
+        padding: 120px 0;
+        position: relative;
+        border-top: 1px solid var(--border);
+      }
+      .section-head {
+        margin-bottom: 56px;
+        max-width: 640px;
+      }
+      .section-head h2 {
+        font-size: clamp(28px, 4vw, 42px);
+        margin-top: 16px;
+      }
+      .section-head .desc {
+        color: var(--text-dim);
+        margin-top: 16px;
+        font-size: 16px;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .reveal.in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ---------- ABOUT ---------- */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 64px;
+        align-items: start;
+      }
+      .about-grid p {
+        color: var(--text-dim);
+        margin-bottom: 18px;
+        font-size: 16px;
+      }
+      .about-grid p strong {
+        color: var(--text);
+        font-weight: 500;
+      }
+      .about-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 28px;
+      }
+      .about-card .card-label {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--amber);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+      }
+      .path {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .path-item {
+        display: flex;
+        gap: 16px;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .path-item:last-child {
+        border-bottom: none;
+      }
+      .path-item .yr {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--text-faint);
+        min-width: 70px;
+        padding-top: 2px;
+      }
+      .path-item .pt {
+        font-size: 14px;
+        color: var(--text);
+      }
+      .path-item .pt small {
+        display: block;
+        color: var(--text-dim);
+        font-size: 13px;
+        margin-top: 2px;
+      }
+      @media (max-width: 860px) {
+        .about-grid {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+      }
+
+      /* ---------- SKILLS ---------- */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .skill-cat {
+        background: var(--bg-alt);
+        padding: 26px 22px;
+      }
+      .skill-cat h3 {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--amber);
+        margin-bottom: 16px;
+        font-weight: 600;
+      }
+      .skill-cat ul li {
+        font-size: 14px;
+        color: var(--text-dim);
+        padding: 6px 0;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+      }
+      .skill-cat ul li::before {
+        content: "";
+        width: 4px;
+        height: 4px;
+        background: var(--cyan);
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      @media (max-width: 860px) {
+        .skills-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 520px) {
+        .skills-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ---------- EXPERIENCE ---------- */
+      .exp-block {
+        margin-bottom: 56px;
+        padding-bottom: 56px;
+        border-bottom: 1px solid var(--border);
+      }
+      .exp-block:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+      .exp-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 24px;
+        margin-bottom: 8px;
+        flex-wrap: wrap;
+      }
+      .exp-head h3 {
+        font-size: 22px;
+      }
+      .exp-head .co {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--cyan);
+        margin-top: 4px;
+      }
+      .exp-head .when {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--text-faint);
+        white-space: nowrap;
+        padding-top: 6px;
+      }
+      .exp-modules {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        margin-top: 24px;
+      }
+      .exp-mod {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 18px 20px;
+        transition:
+          border-color 0.2s ease,
+          transform 0.2s ease;
+      }
+      .exp-mod:hover {
+        border-color: var(--cyan);
+        transform: translateY(-2px);
+      }
+      .exp-mod .mod-name {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--text);
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+      .exp-mod p {
+        font-size: 13.5px;
+        color: var(--text-dim);
+      }
+      @media (max-width: 700px) {
+        .exp-modules {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ---------- PROJECTS ---------- */
+      .proj-card {
+        display: grid;
+        grid-template-columns: 1fr 1.4fr;
+        gap: 0;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 28px;
+        transition: border-color 0.25s ease;
+      }
+      .proj-card:hover {
+        border-color: var(--cyan);
+      }
+      .proj-visual {
+        background: linear-gradient(135deg, var(--bg-alt) 0%, #0e141c 100%);
+        position: relative;
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-right: 1px solid var(--border);
+        min-height: 220px;
+      }
+      .proj-visual .tag {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--amber);
+        border: 1px solid var(--amber-dim);
+        background: var(--amber-dim);
+        padding: 5px 10px;
+        border-radius: 20px;
+        display: inline-block;
+        width: fit-content;
+        letter-spacing: 0.05em;
+      }
+      .proj-visual .ph-icon {
+        font-family: var(--font-mono);
+        font-size: 42px;
+        color: var(--border-light);
+        font-weight: 600;
+      }
+      .proj-body {
+        padding: 32px;
+      }
+      .proj-body h3 {
+        font-size: 22px;
+        margin-bottom: 10px;
+      }
+      .proj-body .proj-desc {
+        color: var(--text-dim);
+        font-size: 14.5px;
+        margin-bottom: 18px;
+      }
+      .proj-stack {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 22px;
+      }
+      .proj-stack span {
+        font-family: var(--font-mono);
+        font-size: 11.5px;
+        color: var(--cyan);
+        background: var(--cyan-dim);
+        padding: 5px 10px;
+        border-radius: 4px;
+      }
+      .proj-links {
+        display: flex;
+        gap: 20px;
+      }
+      .proj-links a {
+        font-family: var(--font-mono);
+        font-size: 12.5px;
+        color: var(--text-dim);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: color 0.2s;
+      }
+      .proj-links a:hover {
+        color: var(--cyan);
+      }
+      @media (max-width: 760px) {
+        .proj-card {
+          grid-template-columns: 1fr;
+        }
+        .proj-visual {
+          border-right: none;
+          border-bottom: 1px solid var(--border);
+          min-height: 140px;
+        }
+      }
+
+      .other-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        margin-top: 36px;
+      }
+      .other-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 22px;
+        transition:
+          border-color 0.2s ease,
+          transform 0.2s ease;
+      }
+      .other-card:hover {
+        border-color: var(--border-light);
+        transform: translateY(-2px);
+      }
+      .other-card .oc-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+      }
+      .other-card h4 {
+        font-family: var(--font-mono);
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .other-card p {
+        font-size: 13px;
+        color: var(--text-dim);
+        margin-bottom: 14px;
+      }
+      .other-card .oc-lang {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--text-faint);
+      }
+      .other-card a.oc-link {
+        font-size: 12px;
+        color: var(--cyan);
+        font-family: var(--font-mono);
+      }
+      @media (max-width: 860px) {
+        .other-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 560px) {
+        .other-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ---------- CERTS ---------- */
+      .cert-card {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 26px 28px;
+      }
+      .cert-badge {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        border: 1.5px solid var(--amber);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-family: var(--font-mono);
+        color: var(--amber);
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .cert-card h3 {
+        font-size: 17px;
+        margin-bottom: 4px;
+      }
+      .cert-card .cert-meta {
+        font-family: var(--font-mono);
+        font-size: 12.5px;
+        color: var(--text-dim);
+      }
+      .cert-card .cert-desc {
+        font-size: 13.5px;
+        color: var(--text-faint);
+        margin-top: 6px;
+      }
+
+      /* ---------- CONTACT ---------- */
+      .contact-inner {
+        text-align: center;
+        max-width: 640px;
+        margin: 0 auto;
+      }
+      .contact-inner .eyebrow {
+        justify-content: center;
+      }
+      .contact-inner .eyebrow::before {
+        display: none;
+      }
+      .contact-inner h2 {
+        font-size: clamp(30px, 5vw, 50px);
+        margin: 18px 0 20px;
+      }
+      .contact-inner p {
+        color: var(--text-dim);
+        font-size: 16px;
+        margin-bottom: 40px;
+      }
+      .contact-ctas {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 56px;
+      }
+      .contact-links {
+        display: flex;
+        justify-content: center;
+        gap: 32px;
+        flex-wrap: wrap;
+      }
+      .contact-links a {
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--text-dim);
+        transition: color 0.2s;
+      }
+      .contact-links a:hover {
+        color: var(--cyan);
+      }
+
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 32px 0;
+      }
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .footer-inner p {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--text-faint);
+      }
+
+      .grid-num {
+        position: absolute;
+        top: 0;
+        right: 32px;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--text-faint);
+        writing-mode: vertical-rl;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="#top" class="logo"><span class="dot"></span>N.POTE</a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="#contact" class="nav-cta">Get in touch</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </header>
+
+    <main id="top">
+      <!-- HERO -->
+      <section class="hero" style="border-top: none; padding-top: 110px">
+        <div class="wrap hero-inner">
+          <div class="hero-label eyebrow">SPEC 001 — FULL-STACK DEVELOPER</div>
+          <h1>
+            Nikhil Pote builds<br />reliable web systems<span class="accent"
+              >.</span
+            >
+          </h1>
+          <div class="role-line">
+            PHP · MySQL · JavaScript — Bengaluru, India<span
+              class="cursor"
+            ></span>
+          </div>
+          <p class="lede">
+            Software Engineer at Stuti Technologies, shipping production modules
+            for
+            <strong>school management, payroll, and assessment platforms</strong
+            >. Originally trained as a mechanical engineer — now applies the
+            same structured, precise thinking to code.
+          </p>
+          <div class="hero-ctas">
+            <a href="#projects" class="btn btn-primary">View Projects →</a>
+            <a href="#contact" class="btn btn-ghost">Download Resume</a>
+          </div>
+          <div class="dims reveal" id="dims">
+            <div class="dim">
+              <span class="num"><span>2.5+</span> yrs</span
+              ><span class="lbl">Professional Experience</span>
+            </div>
+            <div class="dim">
+              <span class="num"><span>4</span> systems</span
+              ><span class="lbl">Production Products Shipped</span>
+            </div>
+            <div class="dim">
+              <span class="num"><span>40</span>%</span
+              ><span class="lbl">HR Efficiency Gain Delivered</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <div class="eyebrow">01 — About</div>
+            <h2>From blueprints to backends</h2>
+          </div>
+          <div class="about-grid">
+            <div class="reveal">
+              <p>
+                I started out studying <strong>Mechanical Engineering</strong> —
+                a degree built on structure, tolerances, and systems that have
+                to work reliably in the real world. That mindset carried
+                straight over when I moved into software.
+              </p>
+              <p>
+                Today I work as a
+                <strong>Software Engineer at Stuti Technologies</strong>, where
+                I own modules end-to-end across four production platforms — a
+                school management system used by international schools, a full
+                payroll and HR platform, an assessment tool, and an internal
+                project tracker. I care about code that's dependable under real
+                usage, not just code that works in a demo.
+              </p>
+              <p>
+                Certified as a <strong>Java Full Stack Developer</strong>, I'm
+                equally comfortable in Core PHP or picking up new stacks — REST
+                APIs and JavaScript fundamentals are part of how I already think
+                about the web.
+              </p>
+            </div>
+            <div class="about-card reveal">
+              <div class="card-label">The Path</div>
+              <div class="path">
+                <div class="path-item">
+                  <span class="yr">2015–18</span
+                  ><span class="pt"
+                    >Diploma in Engineering<small
+                      >Maratha Mandal Polytechnic · CGPA 8.6</small
+                    ></span
+                  >
+                </div>
+                <div class="path-item">
+                  <span class="yr">2018–21</span
+                  ><span class="pt"
+                    >B.E. Mechanical Engineering<small
+                      >KLE College of Engineering · CGPA 8.10</small
+                    ></span
+                  >
+                </div>
+                <div class="path-item">
+                  <span class="yr">2023</span
+                  ><span class="pt"
+                    >Java Full Stack Certification<small
+                      >Besant Technologies, Bangalore</small
+                    ></span
+                  >
+                </div>
+                <div class="path-item">
+                  <span class="yr">2023–Now</span
+                  ><span class="pt"
+                    >Software Engineer<small>Stuti Technologies</small></span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section id="skills">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <div class="eyebrow">02 — Toolkit</div>
+            <h2>Skills &amp; technologies</h2>
+          </div>
+          <div class="skills-grid reveal">
+            <div class="skill-cat">
+              <h3>Languages</h3>
+              <ul>
+                <li>PHP (Core)</li>
+                <li>Java</li>
+                <li>SQL</li>
+                <li>JavaScript</li>
+              </ul>
+            </div>
+            <div class="skill-cat">
+              <h3>Web</h3>
+              <ul>
+                <li>HTML5</li>
+                <li>CSS3</li>
+                <li>jQuery</li>
+                <li>Bootstrap</li>
+              </ul>
+            </div>
+            <div class="skill-cat">
+              <h3>Data &amp; Tools</h3>
+              <ul>
+                <li>MySQL</li>
+                <li>Git</li>
+                <li>Postman</li>
+                <li>VS Code</li>
+              </ul>
+            </div>
+            <div class="skill-cat">
+              <h3>Practice</h3>
+              <ul>
+                <li>REST APIs</li>
+                <li>JDBC</li>
+                <li>Module Ownership</li>
+                <li>Cross-device UI</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXPERIENCE -->
+      <section id="experience">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <div class="eyebrow">03 — Experience</div>
+            <h2>What I've built at Stuti Technologies</h2>
+            <p class="desc">
+              One role, four production systems — each with real modules I owned
+              end-to-end.
+            </p>
+          </div>
+
+          <div class="exp-block reveal">
+            <div class="exp-head">
+              <div>
+                <h3>Software Engineer</h3>
+                <div class="co">Stuti Technologies</div>
+              </div>
+              <div class="when">Nov 2023 — Present</div>
+            </div>
+            <div class="exp-modules">
+              <div class="exp-mod">
+                <div class="mod-name">MySchoolOne — School Management</div>
+                <p>
+                  Built and maintain My Classes, Class Setup, Hostel &amp;
+                  Library modules; integrated IB-curriculum features for
+                  international schools.
+                </p>
+              </div>
+              <div class="exp-mod">
+                <div class="mod-name">MyPayroll — Payroll System</div>
+                <p>
+                  Built Employee, Leave, Attendance, Asset &amp; Appraisal
+                  modules. Automated payroll processing, improving HR efficiency
+                  by <strong style="color: var(--text)">40%</strong>.
+                </p>
+              </div>
+              <div class="exp-mod">
+                <div class="mod-name">AssessOnline — Assessment Platform</div>
+                <p>
+                  Handled critical bug fixing under pressure; understood
+                  unfamiliar architecture fast to keep daily operations running.
+                </p>
+              </div>
+              <div class="exp-mod">
+                <div class="mod-name">Project Management Tool (Internal)</div>
+                <p>
+                  Built task assignment, deadlines &amp; reporting with PHP +
+                  Bootstrap; optimized DB queries for real-time progress views.
+                </p>
+              </div>
+              <div class="exp-mod">
+                <div class="mod-name">Dashboards &amp; MyFeatures</div>
+                <p>
+                  Built interactive dashboards across Employee, Admin, Payroll
+                  &amp; Asset; contributed to the unified "MyFeatures" access
+                  hub.
+                </p>
+              </div>
+              <div class="exp-mod">
+                <div class="mod-name">Onboarding Logic</div>
+                <p>
+                  Developed 14-day free-trial access logic, directly boosting
+                  new-customer onboarding experience.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <div class="eyebrow">04 — Featured Work</div>
+            <h2>Flagship projects</h2>
+            <p class="desc">
+              Personal builds that mirror the production systems I work on — in
+              progress. Live demos and repos going live soon.
+            </p>
+          </div>
+
+          <div class="proj-card reveal">
+            <div class="proj-visual">
+              <span class="tag">IN PROGRESS</span>
+              <span class="ph-icon">01</span>
+            </div>
+            <div class="proj-body">
+              <h3>HR &amp; Payroll Manager</h3>
+              <p class="proj-desc">
+                A self-built payroll and HR system — employee records, leave
+                requests, attendance tracking, and an admin dashboard with
+                reporting. Mirrors the MyPayroll platform I build
+                professionally.
+              </p>
+              <div class="proj-stack">
+                <span>PHP</span><span>MySQL</span><span>JavaScript</span
+                ><span>Bootstrap</span>
+              </div>
+              <div class="proj-links">
+                <a href="#">→ Live Demo (coming soon)</a
+                ><a href="#">→ Source Code (coming soon)</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="proj-card reveal">
+            <div class="proj-visual">
+              <span class="tag">IN PROGRESS</span>
+              <span class="ph-icon">02</span>
+            </div>
+            <div class="proj-body">
+              <h3>TaskFlow — Project Tracker</h3>
+              <p class="proj-desc">
+                A task &amp; project management tool with a PHP REST API and a
+                modern JS frontend — task assignment, deadlines, and live
+                progress reporting.
+              </p>
+              <div class="proj-stack">
+                <span>PHP (API)</span><span>MySQL</span><span>JavaScript</span>
+              </div>
+              <div class="proj-links">
+                <a href="#">→ Live Demo (coming soon)</a
+                ><a href="#">→ Source Code (coming soon)</a>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="section-head reveal"
+            style="margin-top: 64px; margin-bottom: 0"
+          >
+            <div class="eyebrow">Other Repositories</div>
+          </div>
+          <div class="other-grid reveal">
+            <div class="other-card">
+              <div class="oc-top">
+                <h4>iCoderBootstrap</h4>
+                <span class="oc-lang">HTML</span>
+              </div>
+              <p>
+                A Bootstrap-based website build exploring responsive layout
+                fundamentals.
+              </p>
+              <a
+                class="oc-link"
+                href="https://github.com/Nikhilpote077/iCoderBootstrap"
+                target="_blank"
+                rel="noopener"
+                >View on GitHub →</a
+              >
+            </div>
+            <div class="other-card">
+              <div class="oc-top">
+                <h4>Netflix Clone</h4>
+                <span class="oc-lang">JavaScript</span>
+              </div>
+              <p>A front-end recreation of the Netflix browsing UI.</p>
+              <a
+                class="oc-link"
+                href="https://github.com/Nikhilpote077/Netflix_Clone"
+                target="_blank"
+                rel="noopener"
+                >View on GitHub →</a
+              >
+            </div>
+            <div class="other-card">
+              <div class="oc-top">
+                <h4>SpringBootCRUDOperations</h4>
+                <span class="oc-lang">Java</span>
+              </div>
+              <p>
+                CRUD operations built with Spring Boot, exploring the Java
+                backend ecosystem.
+              </p>
+              <a
+                class="oc-link"
+                href="https://github.com/Nikhilpote077/SpringBootCRUDOperations"
+                target="_blank"
+                rel="noopener"
+                >View on GitHub →</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CERTS -->
+      <section id="certs">
+        <div class="wrap">
+          <div class="section-head reveal">
+            <div class="eyebrow">05 — Certification</div>
+            <h2>Credentials</h2>
+          </div>
+          <div class="cert-card reveal">
+            <div class="cert-badge">J</div>
+            <div>
+              <h3>Certified Java Full Stack Developer</h3>
+              <div class="cert-meta">
+                Besant Technologies, BTM Layout, Bangalore — 2023
+              </div>
+              <div class="cert-desc">
+                Core Java, JDBC, REST APIs, and JavaScript fundamentals for
+                frontend development.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact">
+        <div class="wrap contact-inner reveal">
+          <div class="eyebrow">06 — Contact</div>
+          <h2>Let's build something reliable together</h2>
+          <p>
+            Open to full-stack and backend opportunities. Based in JP Nagar,
+            Bangalore — happy to work remote or on-site.
+          </p>
+          <div class="contact-ctas">
+            <a href="mailto:potenikhil77@gmail.com" class="btn btn-primary"
+              >Email Me →</a
+            >
+            <a href="tel:+919591162396" class="btn btn-ghost">Call Me</a>
+          </div>
+          <div class="contact-links">
+            <a href="mailto:potenikhil77@gmail.com">potenikhil77@gmail.com</a>
+            <a href="tel:+919591162396">+91 95911 62396</a>
+            <a
+              href="https://www.linkedin.com/in/nikhil-shantaram-pote-b17143250/"
+              target="_blank"
+              rel="noopener"
+              >LinkedIn</a
+            >
+            <a
+              href="https://github.com/Nikhilpote077"
+              target="_blank"
+              rel="noopener"
+              >GitHub</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap footer-inner">
+        <p>© 2026 Nikhil Pote. Built with intent.</p>
+        <p>JP Nagar, Bangalore, India</p>
+      </div>
+    </footer>
+
+    <script>
+      // mobile nav toggle
+      const navToggle = document.getElementById("navToggle");
+      const navLinks = document.getElementById("navLinks");
+      navToggle.addEventListener("click", () =>
+        navLinks.classList.toggle("open"),
+      );
+      navLinks
+        .querySelectorAll("a")
+        .forEach((a) =>
+          a.addEventListener("click", () => navLinks.classList.remove("open")),
+        );
+
+      // scroll reveal
+      const revealEls = document.querySelectorAll(".reveal");
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in");
+              io.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12 },
+      );
+      revealEls.forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>
