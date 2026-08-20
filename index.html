@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nikhil Shantaram Pote — Full-Stack Developer</title>
+    <title>Nikhil Pote — Full-Stack Developer</title>
     <meta
       name="description"
-      content="Nikhil Shantaram Pote — Full-Stack Developer specializing in PHP, MySQL, and JavaScript. 2.5+ years building school management, payroll, and assessment systems."
+      content="Nikhil Pote — Full-Stack Developer specializing in PHP, MySQL, and JavaScript. 1.5+ years building school management, payroll, and assessment systems."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -60,7 +60,7 @@
       body::before {
         content: "";
         position: fixed;
-        inset: 0;
+        inset: -10%;
         background:
           radial-gradient(
             ellipse 80% 60% at 50% -10%,
@@ -74,6 +74,16 @@
           );
         pointer-events: none;
         z-index: 0;
+        animation: driftBg 26s ease-in-out infinite;
+      }
+      @keyframes driftBg {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+        50% {
+          transform: translate(-1.5%, 1.5%) scale(1.03);
+        }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -82,6 +92,10 @@
           animation-iteration-count: 1 !important;
           transition-duration: 0.01ms !important;
           scroll-behavior: auto !important;
+        }
+        .hero-in {
+          opacity: 1 !important;
+          transform: none !important;
         }
       }
 
@@ -147,6 +161,21 @@
         background: rgba(11, 15, 20, 0.78);
         backdrop-filter: blur(10px);
         border-bottom: 1px solid var(--border);
+        transition:
+          box-shadow 0.3s ease,
+          border-color 0.3s ease;
+      }
+      header.scrolled {
+        box-shadow: 0 12px 32px -16px rgba(0, 0, 0, 0.55);
+      }
+      .scroll-progress {
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        height: 2px;
+        width: 0%;
+        background: linear-gradient(90deg, var(--cyan), var(--amber));
+        transition: width 0.1s linear;
       }
       nav {
         max-width: var(--max-w);
@@ -155,6 +184,10 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        transition: padding 0.3s ease;
+      }
+      header.scrolled nav {
+        padding: 13px 32px;
       }
       .logo {
         font-family: var(--font-mono);
@@ -171,6 +204,18 @@
         background: var(--cyan);
         border-radius: 50%;
         box-shadow: 0 0 8px var(--cyan);
+        animation: dotPulse 2.4s ease-in-out infinite;
+      }
+      @keyframes dotPulse {
+        0%,
+        100% {
+          box-shadow: 0 0 6px var(--cyan);
+          opacity: 1;
+        }
+        50% {
+          box-shadow: 0 0 14px var(--cyan);
+          opacity: 0.65;
+        }
       }
       .nav-links {
         display: flex;
@@ -184,9 +229,26 @@
         letter-spacing: 0.06em;
         transition: color 0.2s ease;
         position: relative;
+        padding-bottom: 3px;
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        width: 0;
+        height: 1px;
+        background: var(--cyan);
+        transition:
+          width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+          left 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       }
       .nav-links a:hover {
         color: var(--cyan);
+      }
+      .nav-links a:hover::after {
+        width: 100%;
+        left: 0;
       }
       .nav-cta {
         font-family: var(--font-mono);
@@ -249,9 +311,49 @@
           padding: 14px 32px;
           width: 100%;
           border-bottom: 1px solid var(--border);
+          opacity: 0;
+          transform: translateX(-8px);
+          transition:
+            opacity 0.3s ease,
+            transform 0.3s ease,
+            color 0.2s ease;
+        }
+        .nav-links a::after {
+          display: none;
+        }
+        .nav-links.open a {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        .nav-links.open li:nth-child(1) a {
+          transition-delay: 0.05s;
+        }
+        .nav-links.open li:nth-child(2) a {
+          transition-delay: 0.1s;
+        }
+        .nav-links.open li:nth-child(3) a {
+          transition-delay: 0.15s;
+        }
+        .nav-links.open li:nth-child(4) a {
+          transition-delay: 0.2s;
+        }
+        .nav-links.open li:nth-child(5) a {
+          transition-delay: 0.25s;
         }
         .nav-toggle {
           display: block;
+        }
+        .nav-toggle span {
+          transform-origin: center;
+        }
+        .nav-toggle.active span:nth-child(1) {
+          transform: translateY(7px) rotate(45deg);
+        }
+        .nav-toggle.active span:nth-child(2) {
+          opacity: 0;
+        }
+        .nav-toggle.active span:nth-child(3) {
+          transform: translateY(-7px) rotate(-45deg);
         }
         .nav-cta {
           display: none;
@@ -266,10 +368,43 @@
         padding-top: 110px;
         padding-bottom: 60px;
         position: relative;
+        overflow: hidden;
       }
       .hero-inner {
         position: relative;
       }
+
+      /* hero load-in choreography */
+      .hero-in {
+        opacity: 0;
+        transform: translateY(18px);
+        animation: heroIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      @keyframes heroIn {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .hero-label.hero-in {
+        animation-delay: 0.05s;
+      }
+      .hero h1.hero-in {
+        animation-delay: 0.15s;
+      }
+      .hero .role-line.hero-in {
+        animation-delay: 0.32s;
+      }
+      .hero p.lede.hero-in {
+        animation-delay: 0.44s;
+      }
+      .hero-ctas.hero-in {
+        animation-delay: 0.56s;
+      }
+      #dims.hero-in {
+        animation-delay: 0.68s;
+      }
+
       .hero-label {
         margin-bottom: 28px;
       }
@@ -280,12 +415,14 @@
       }
       .hero h1 .accent {
         color: var(--cyan);
+        display: inline-block;
       }
       .hero .role-line {
         font-family: var(--font-mono);
         font-size: clamp(14px, 2vw, 18px);
         color: var(--text-dim);
         margin-bottom: 26px;
+        min-height: 1.4em;
       }
       .hero .role-line .cursor {
         display: inline-block;
@@ -328,13 +465,42 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        transition: all 0.2s ease;
+        transition:
+          transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+          box-shadow 0.25s ease,
+          background 0.2s ease,
+          border-color 0.2s ease,
+          color 0.2s ease;
         cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+      .btn:active {
+        transform: translateY(0) scale(0.97);
       }
       .btn-primary {
         background: var(--cyan);
         color: #0b0f14;
         font-weight: 600;
+      }
+      .btn-primary::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -60%;
+        width: 40%;
+        height: 100%;
+        background: linear-gradient(
+          115deg,
+          transparent,
+          rgba(255, 255, 255, 0.45),
+          transparent
+        );
+        transform: skewX(-20deg);
+        transition: left 0.55s ease;
+      }
+      .btn-primary:hover::before {
+        left: 130%;
       }
       .btn-primary:hover {
         background: #7ed4ee;
@@ -349,6 +515,7 @@
         border-color: var(--amber);
         color: var(--amber);
         transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(242, 166, 90, 0.15);
       }
 
       /* dimension-line stat annotations */
@@ -442,6 +609,42 @@
         transform: translateY(0);
       }
 
+      /* staggered cascade for grid children once their parent reveals */
+      .skills-grid .skill-cat,
+      .exp-modules .exp-mod,
+      .other-grid .other-card {
+        opacity: 0;
+        transform: translateY(14px);
+        transition:
+          opacity 0.55s ease,
+          transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .reveal.in .skill-cat,
+      .reveal.in .exp-mod,
+      .reveal.in .other-card {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .skills-grid .skill-cat:nth-child(1),
+      .exp-modules .exp-mod:nth-child(1),
+      .other-grid .other-card:nth-child(1) {
+        transition-delay: 0.05s;
+      }
+      .skills-grid .skill-cat:nth-child(2),
+      .exp-modules .exp-mod:nth-child(2),
+      .other-grid .other-card:nth-child(2) {
+        transition-delay: 0.14s;
+      }
+      .skills-grid .skill-cat:nth-child(3),
+      .exp-modules .exp-mod:nth-child(3),
+      .other-grid .other-card:nth-child(3) {
+        transition-delay: 0.23s;
+      }
+      .skills-grid .skill-cat:nth-child(4),
+      .exp-modules .exp-mod:nth-child(4) {
+        transition-delay: 0.32s;
+      }
+
       /* ---------- ABOUT ---------- */
       .about-grid {
         display: grid;
@@ -463,6 +666,15 @@
         border: 1px solid var(--border);
         border-radius: 8px;
         padding: 28px;
+        transition:
+          border-color 0.3s ease,
+          box-shadow 0.3s ease,
+          transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .about-card:hover {
+        border-color: var(--border-light);
+        box-shadow: 0 16px 40px -20px rgba(0, 0, 0, 0.5);
+        transform: translateY(-3px);
       }
       .about-card .card-label {
         font-family: var(--font-mono);
@@ -540,6 +752,7 @@
         display: flex;
         align-items: center;
         gap: 9px;
+        transition: color 0.2s ease;
       }
       .skill-cat ul li::before {
         content: "";
@@ -548,6 +761,15 @@
         background: var(--cyan);
         border-radius: 50%;
         flex-shrink: 0;
+        transition: transform 0.2s ease;
+      }
+      @media (hover: hover) {
+        .skill-cat ul li:hover {
+          color: var(--text);
+        }
+        .skill-cat ul li:hover::before {
+          transform: scale(2.2);
+        }
       }
       @media (max-width: 860px) {
         .skills-grid {
@@ -607,12 +829,14 @@
         border-radius: 6px;
         padding: 18px 20px;
         transition:
-          border-color 0.2s ease,
-          transform 0.2s ease;
+          border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+          box-shadow 0.25s ease;
       }
       .exp-mod:hover {
         border-color: var(--cyan);
-        transform: translateY(-2px);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 28px -14px rgba(95, 201, 232, 0.3);
       }
       .exp-mod .mod-name {
         font-family: var(--font-mono);
@@ -641,10 +865,15 @@
         border-radius: 10px;
         overflow: hidden;
         margin-bottom: 28px;
-        transition: border-color 0.25s ease;
+        transition:
+          border-color 0.3s ease,
+          box-shadow 0.3s ease,
+          transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       }
       .proj-card:hover {
         border-color: var(--cyan);
+        transform: translateY(-3px);
+        box-shadow: 0 20px 44px -22px rgba(95, 201, 232, 0.28);
       }
       .proj-visual {
         background: linear-gradient(135deg, var(--bg-alt) 0%, #0e141c 100%);
@@ -739,12 +968,14 @@
         border-radius: 8px;
         padding: 22px;
         transition:
-          border-color 0.2s ease,
-          transform 0.2s ease;
+          border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+          box-shadow 0.25s ease;
       }
       .other-card:hover {
-        border-color: var(--border-light);
-        transform: translateY(-2px);
+        border-color: var(--cyan);
+        transform: translateY(-3px);
+        box-shadow: 0 14px 32px -18px rgba(95, 201, 232, 0.25);
       }
       .other-card .oc-top {
         display: flex;
@@ -788,6 +1019,15 @@
         border-radius: 8px;
         padding: 26px 28px;
       }
+      .cert-card {
+        transition:
+          border-color 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .cert-card:hover {
+        border-color: var(--border-light);
+        box-shadow: 0 16px 36px -20px rgba(242, 166, 90, 0.3);
+      }
       .cert-badge {
         width: 52px;
         height: 52px;
@@ -801,6 +1041,25 @@
         color: var(--amber);
         font-size: 18px;
         font-weight: 600;
+        position: relative;
+      }
+      .cert-badge::before {
+        content: "";
+        position: absolute;
+        inset: -6px;
+        border-radius: 50%;
+        border: 1.5px dashed var(--amber-dim);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        animation: spinRing 6s linear infinite;
+      }
+      .cert-card:hover .cert-badge::before {
+        opacity: 1;
+      }
+      @keyframes spinRing {
+        to {
+          transform: rotate(360deg);
+        }
       }
       .cert-card h3 {
         font-size: 17px;
@@ -890,7 +1149,7 @@
     </style>
   </head>
   <body>
-    <header>
+    <header id="siteHeader">
       <nav>
         <a href="#top" class="logo"><span class="dot"></span>N.POTE</a>
         <ul class="nav-links" id="navLinks">
@@ -905,46 +1164,53 @@
           <span></span><span></span><span></span>
         </button>
       </nav>
+      <div class="scroll-progress" id="scrollProgress"></div>
     </header>
 
     <main id="top">
       <!-- HERO -->
       <section class="hero" style="border-top: none; padding-top: 110px">
         <div class="wrap hero-inner">
-          <div class="hero-label eyebrow">SPEC 001 — FULL-STACK DEVELOPER</div>
-          <h1>
-            Nikhil Shantaram Pote builds<br />reliable web systems<span
-              class="accent"
+          <div class="hero-label eyebrow hero-in">
+            SPEC 001 — FULL-STACK DEVELOPER
+          </div>
+          <h1 class="hero-in">
+            Nikhil Pote builds<br />reliable web systems<span class="accent"
               >.</span
             >
           </h1>
-          <div class="role-line">
-            PHP · MySQL · JavaScript — Bengaluru, India<span
-              class="cursor"
-            ></span>
+          <div class="role-line hero-in">
+            <span id="roleText">PHP · MySQL · JavaScript — Bengaluru, India</span
+            ><span class="cursor"></span>
           </div>
-          <p class="lede">
+          <p class="lede hero-in">
             Software Engineer at Stuti Technologies, shipping production modules
             for
             <strong>school management, payroll, and assessment platforms</strong
             >. Originally trained as a mechanical engineer — now applies the
             same structured, precise thinking to code.
           </p>
-          <div class="hero-ctas">
+          <div class="hero-ctas hero-in">
             <a href="#projects" class="btn btn-primary">View Projects →</a>
             <a href="#contact" class="btn btn-ghost">Download Resume</a>
           </div>
-          <div class="dims reveal" id="dims">
+          <div class="dims hero-in" id="dims">
             <div class="dim">
-              <span class="num"><span>2.5+</span> yrs</span
+              <span class="num"
+                ><span class="count-up" data-target="1.5" data-suffix="+"
+                  >0</span
+                >
+                yrs</span
               ><span class="lbl">Professional Experience</span>
             </div>
             <div class="dim">
-              <span class="num"><span>4</span> systems</span
+              <span class="num"
+                ><span class="count-up" data-target="4">0</span> systems</span
               ><span class="lbl">Production Products Shipped</span>
             </div>
             <div class="dim">
-              <span class="num"><span>40</span>%</span
+              <span class="num"
+                ><span class="count-up" data-target="40">0</span>%</span
               ><span class="lbl">HR Efficiency Gain Delivered</span>
             </div>
           </div>
@@ -1319,23 +1585,29 @@
 
     <footer>
       <div class="wrap footer-inner">
-        <p>© 2026 Nikhil Shantaram Pote. Built with intent.</p>
+        <p>© 2026 Nikhil Pote. Built with intent.</p>
         <p>JP Nagar, Bangalore, India</p>
       </div>
     </footer>
 
     <script>
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
       // mobile nav toggle
       const navToggle = document.getElementById("navToggle");
       const navLinks = document.getElementById("navLinks");
-      navToggle.addEventListener("click", () =>
-        navLinks.classList.toggle("open"),
+      navToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("open");
+        navToggle.classList.toggle("active");
+      });
+      navLinks.querySelectorAll("a").forEach((a) =>
+        a.addEventListener("click", () => {
+          navLinks.classList.remove("open");
+          navToggle.classList.remove("active");
+        }),
       );
-      navLinks
-        .querySelectorAll("a")
-        .forEach((a) =>
-          a.addEventListener("click", () => navLinks.classList.remove("open")),
-        );
 
       // scroll reveal
       const revealEls = document.querySelectorAll(".reveal");
@@ -1351,6 +1623,93 @@
         { threshold: 0.12 },
       );
       revealEls.forEach((el) => io.observe(el));
+
+      // header scroll state + scroll progress bar
+      const header = document.getElementById("siteHeader");
+      const progressBar = document.getElementById("scrollProgress");
+      const onScroll = () => {
+        const scrollTop = window.scrollY;
+        header.classList.toggle("scrolled", scrollTop > 12);
+        const docHeight =
+          document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressBar.style.width = pct + "%";
+      };
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
+      // hero role-line typewriter cycle
+      const roleEl = document.getElementById("roleText");
+      const roles = [
+        "PHP · MySQL · JavaScript — Bengaluru, India",
+        "Backend-Leaning Full-Stack Engineer",
+        "Building School, Payroll &amp; Assessment Systems",
+      ].map((r) => r.replace("&amp;", "&"));
+
+      if (!reduceMotion && roleEl) {
+        let roleIndex = 0;
+        let charIndex = roles[0].length;
+        let deleting = false;
+        const TYPE_SPEED = 38;
+        const DELETE_SPEED = 22;
+        const HOLD_TIME = 2200;
+
+        function tickTypewriter() {
+          const current = roles[roleIndex];
+          if (!deleting) {
+            charIndex++;
+            if (charIndex > current.length) {
+              charIndex = current.length;
+              deleting = false;
+              setTimeout(() => {
+                deleting = true;
+                tickTypewriter();
+              }, HOLD_TIME);
+              return;
+            }
+          } else {
+            charIndex--;
+            if (charIndex < 0) {
+              charIndex = 0;
+              deleting = false;
+              roleIndex = (roleIndex + 1) % roles.length;
+            }
+          }
+          roleEl.textContent = current.slice(0, charIndex);
+          setTimeout(tickTypewriter, deleting ? DELETE_SPEED : TYPE_SPEED);
+        }
+        setTimeout(() => {
+          deleting = true;
+          tickTypewriter();
+        }, HOLD_TIME);
+      }
+
+      // stat count-up on hero load
+      function runCountUp() {
+        document.querySelectorAll(".count-up").forEach((el) => {
+          const target = parseFloat(el.dataset.target);
+          const suffix = el.dataset.suffix || "";
+          const isDecimal = el.dataset.target.includes(".");
+          if (reduceMotion) {
+            el.textContent = el.dataset.target + suffix;
+            return;
+          }
+          const duration = 1100;
+          const start = performance.now();
+          function step(now) {
+            const p = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - p, 3);
+            const value = target * eased;
+            el.textContent =
+              (isDecimal ? value.toFixed(1) : Math.round(value)) + suffix;
+            if (p < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        });
+      }
+      window.addEventListener("load", () => {
+        setTimeout(runCountUp, reduceMotion ? 0 : 650);
+      });
     </script>
   </body>
 </html>
